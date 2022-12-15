@@ -1,0 +1,43 @@
+table {
+    width: 100%;
+}
+
+ul li {
+    list-style: none;
+}
+
+.align {
+    text-align: center;
+    margin-top: 20px;
+}
+
+mat-form-field{
+    width: 140%;
+}
+
+.mat-cell:nth-child(1),
+.mat-header-cell:nth-child(1){
+    flex: 0 0 6%;
+}
+
+#btn{
+    background-color: #3fcc88 !important;
+    color: black;
+}
+
+#btn:hover{
+    background-color: #646464 !important;
+    color: white;
+    border: 1px solid #3fcc88 !important;
+}
+
+#btnExport{
+    background-color: #646464 !important;
+    color: white;
+    border: 1px solid #3fcc88 !important;    
+}
+
+#btnExport:hover{
+    background-color: #3fcc88 !important;
+    color: black;
+}

@@ -1,0 +1,86 @@
+<mat-card>
+  <h2 class="align">Categories</h2>
+  <mat-card-header>
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Search Categories</mat-label>
+        <input matInput #input (keyup)="search(input.value)" />
+      </mat-form-field>
+    </div>
+  </mat-card-header>
+  <mat-card-header>
+    <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+      <ul fxLayout="row" fxLayoutGap="20px">
+        <li>
+          <button
+            mat-raised-button
+            id="btn"
+            (click)="openCategoryDialog()"
+          >
+            Add Category
+          </button>
+        </li>
+        <li>
+          <button id="btnExport" mat-button color="primary" (click)="exportExcel()">
+            Export Excel
+          </button>
+        </li>
+      </ul>
+    </div>
+  </mat-card-header>
+
+  <div mat-card-image></div>
+
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" class="mat-cell">
+      <!-- id column-->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+
+      <!-- name column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- description column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+      </ng-container>
+
+      <!-- actions-->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <button
+            mat-icon-button
+            color="accent"
+            (click)="edit(element.id, element.name, element.description)"
+          >
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+
+          <button
+            *ngIf="isAdmin"
+            mat-icon-button
+            color="accent"
+            (click)="delete(element.id)"
+          >
+            <mat-icon aria-label="Delete">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </mat-card-content>
+</mat-card>
