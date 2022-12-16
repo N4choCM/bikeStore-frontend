@@ -7,8 +7,6 @@
         <input matInput #input (keyup)="search(input.value)" />
       </mat-form-field>
     </div>
-  </mat-card-header>
-  <mat-card-header>
     <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
       <ul fxLayout="row" fxLayoutGap="20px">
         <li>
@@ -24,8 +22,6 @@
       </ul>
     </div>
   </mat-card-header>
-
-  <div mat-card-image></div>
 
   <mat-card-content>
     <table mat-table [dataSource]="dataSource" class="mat-cell">
@@ -73,7 +69,7 @@
         <td mat-cell *matCellDef="let element; let i = index">
           <button
             mat-icon-button
-            color="accent"
+            id="btnUpdate"
             (click)="
               edit(
                 element.id,
@@ -88,9 +84,8 @@
           </button>
 
           <button
-            *ngIf="isAdmin"
             mat-icon-button
-            color="accent"
+            id="btnDelete"
             (click)="delete(element.id)"
           >
             <mat-icon aria-label="Delete">delete</mat-icon>

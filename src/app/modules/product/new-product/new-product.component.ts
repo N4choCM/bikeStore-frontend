@@ -91,7 +91,7 @@ export class NewProductComponent implements OnInit {
   getCategories(){
     this.categoryService.getCategories()
         .subscribe( (data: any) =>{
-          this.categories = data.categoryResponse.category;
+          this.categories = data.categoryResponse.categoryList;
         }, (error: any) =>{
           console.log("error when retrieving categories");
         })

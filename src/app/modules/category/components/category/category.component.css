@@ -41,3 +41,11 @@ mat-form-field{
     background-color: #3fcc88 !important;
     color: black;
 }
+
+#btnDelete{
+    color: red;
+}
+
+#btnUpdate{
+    color: #EED202;
+}

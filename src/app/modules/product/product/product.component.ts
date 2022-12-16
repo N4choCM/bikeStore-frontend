@@ -58,9 +58,9 @@ export class ProductComponent implements OnInit {
   processProductResponse(resp: any) {
     const productData: ProductElement[] = [];
     if (resp.metadata[0].code == "00") {
-      let listCProduct = resp.product.products;
+      let listCProduct = resp.productResponse.productsList;
 
-      listCProduct.forEach((element: ProductElement) => {
+      listCProduct?.forEach((element: ProductElement) => {
         //element.category = element.category.name;
         element.picture = "data:image/jpeg;base64," + element.picture;
         productData.push(element);
