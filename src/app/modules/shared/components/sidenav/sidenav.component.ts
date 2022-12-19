@@ -1,5 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-sidenav',
@@ -17,15 +18,18 @@ export class SidenavComponent implements OnInit {
     {name: "Products", route: "product", icon: "production_quantity_limits"}
   ]
 
-  constructor(media: MediaMatcher) {
+  constructor(media: MediaMatcher, private keycloakService: KeycloakService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
   }
 
   shouldRun = true;
   
   ngOnInit(): void {
+    this.username = this.keycloakService.getUsername();
   }
 
-
+  logout(){
+    this.keycloakService.logout();
+  }
 
 }
