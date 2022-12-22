@@ -165,10 +165,9 @@ export class ProductComponent implements OnInit {
         anchor.href = fileUrl;
         anchor.click();
 
-        this.openSnackBar("Archivo exportado correctamente", "Exitosa");
-      },
-      (error: any) => {
-        this.openSnackBar("No se pudo exportar el archivo", "Error");
+        this.openSnackBar("File successfully eported!", "Success")
+      }, (error: any) => {
+        this.openSnackBar("File could not be exported.", "Error")
       }
     );
   }

@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     const quantity: number[] = [];
 
     if (resp.metadata[0].code == "00") {
-      let listCProduct = resp.product.products;
+      let listCProduct = resp.productResponse.productsList;
 
       listCProduct.forEach((element: ProductElement) => {
         nameProduct.push(element.name);
