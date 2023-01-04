@@ -17,10 +17,13 @@ export class HomeComponent implements OnInit {
     this.getProducts();
   }
 
+  /**
+   * Procedure that gets all the Products from the DB.
+   */
   getProducts() {
     this.productService.getProducts().subscribe(
       (data: any) => {
-        console.log("Products Response: ", data);
+        console.log("products response: ", data);
         this.processProductResponse(data);
       },
       (error: any) => {
@@ -29,6 +32,11 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  /**
+   * Method that collects a Products List with names and quantity from the Java backend
+   * and uses this data to build a doughnut chart.
+   * @param resp An instance of the ProductResponse.java from the Backend.
+   */
   processProductResponse(resp: any) {
     const productName: String[] = [];
     const productQuantity: number[] = [];
@@ -41,7 +49,6 @@ export class HomeComponent implements OnInit {
         productQuantity.push(element.quantity);
       });
 
-      //nuestro gráfico de doughnut de productos
       this.chartdoughnut = new Chart("canvas-doughnut", {
         type: "doughnut",
         data: {

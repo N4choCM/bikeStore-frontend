@@ -43,6 +43,9 @@ export class ProductComponent implements OnInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
+  /**
+   * Procedure that gets all the Products from the DB.
+   */
   getProducts() {
     this.productService.getProducts().subscribe(
       (data: any) => {
@@ -55,23 +58,27 @@ export class ProductComponent implements OnInit {
     );
   }
 
+  /**
+   * Method that collects a Products List from the Java backend and uses this data
+   * to build a MatTableDataSource.
+   * @param resp An instance of the ProductResponse.java from the Backend.
+   */
   processProductResponse(resp: any) {
     const productData: ProductElement[] = [];
     if (resp.metadata[0].code == "00") {
       let listCProduct = resp.productResponse.productsList;
-
       listCProduct?.forEach((element: ProductElement) => {
-        //element.category = element.category.name;
         element.picture = "data:image/jpeg;base64," + element.picture;
         productData.push(element);
       });
-
-      //set the datasource
       this.dataSource = new MatTableDataSource<ProductElement>(productData);
       this.dataSource.paginator = this.paginator;
     }
   }
 
+  /**
+   * Procedure that opens a dialog to add a new Product.
+   */
   openProductDialog() {
     const dialogRef = this.dialog.open(NewProductComponent, {
       width: "450px",
@@ -87,6 +94,13 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  /**
+   * Method that opens a small panel message informing about the operation just done (add, update or
+   * delete a Product, or file export).
+   * @param message The informative message provided.
+   * @param action The action done (addition, update, delete or file export).
+   * @returns The small panel message.
+   */
   openSnackBar(
     message: string,
     action: string
@@ -96,6 +110,9 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  /**
+   * Procedure that opens a dialog to edit a Product.
+   */
   edit(
     id: number,
     name: string,
@@ -124,6 +141,10 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  /**
+   * Procedure that opens a dialog to delete a Product.
+   * @param id The ID of the Product to be deleted.
+   */
   delete(id: any) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: "450px",
@@ -140,16 +161,23 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  /**
+   * Method that gets a Product by its name.
+   * @param name The name of the Product to be found.
+   * @returns The Product found.
+   */
   search(name: any) {
     if (name.length === 0) {
       return this.getProducts();
     }
-
     this.productService.getProductByName(name).subscribe((resp: any) => {
       this.processProductResponse(resp);
     });
   }
 
+  /**
+   * Procedure that exports an EXCEL file with all the Product registries from the DB.
+   */
   exportExcel() {
     this.productService.exportProduct().subscribe(
       (data: any) => {
@@ -161,10 +189,10 @@ export class ProductComponent implements OnInit {
         anchor.download = "products.xlsx";
         anchor.href = fileUrl;
         anchor.click();
-
-        this.openSnackBar("File successfully exported!", "Success")
-      }, (error: any) => {
-        this.openSnackBar("File could not be exported.", "Error")
+        this.openSnackBar("File successfully exported!", "Success");
+      },
+      (error: any) => {
+        this.openSnackBar("File could not be exported.", "Error");
       }
     );
   }
