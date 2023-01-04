@@ -9,7 +9,6 @@ import {
 import { MatTableDataSource } from "@angular/material/table";
 import { ConfirmComponent } from "../../shared/components/confirm/confirm.component";
 import { ProductService } from "../../shared/services/product.service";
-import { UtilService } from "../../shared/services/util.service";
 import { NewProductComponent } from "../new-product/new-product.component";
 
 @Component({
@@ -23,13 +22,11 @@ export class ProductComponent implements OnInit {
   constructor(
     private productService: ProductService,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar,
-    private util: UtilService
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     this.getProducts();
-    this.isAdmin = this.util.isAdmin();
   }
 
   displayedColumns: string[] = [
@@ -165,7 +162,7 @@ export class ProductComponent implements OnInit {
         anchor.href = fileUrl;
         anchor.click();
 
-        this.openSnackBar("File successfully eported!", "Success")
+        this.openSnackBar("File successfully exported!", "Success")
       }, (error: any) => {
         this.openSnackBar("File could not be exported.", "Error")
       }

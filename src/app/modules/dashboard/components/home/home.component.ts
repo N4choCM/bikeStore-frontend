@@ -9,7 +9,6 @@ import { ProductService } from "src/app/modules/shared/services/product.service"
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  chartBar: any;
   chartdoughnut: any;
 
   constructor(private productService: ProductService) {}
@@ -31,32 +30,23 @@ export class HomeComponent implements OnInit {
   }
 
   processProductResponse(resp: any) {
-    const nameProduct: String[] = [];
-    const quantity: number[] = [];
+    const productName: String[] = [];
+    const productQuantity: number[] = [];
 
     if (resp.metadata[0].code == "00") {
       let listCProduct = resp.productResponse.productsList;
 
       listCProduct.forEach((element: ProductElement) => {
-        nameProduct.push(element.name);
-        quantity.push(element.quantity);
+        productName.push(element.name);
+        productQuantity.push(element.quantity);
       });
 
-      //nuestro gráfico de barras
-      this.chartBar = new Chart("canvas-bar", {
-        type: "bar",
-        data: {
-          labels: nameProduct,
-          datasets: [{ label: "Products", data: quantity }],
-        },
-      });
-
-      //nuestro gráfico de doughnut
+      //nuestro gráfico de doughnut de productos
       this.chartdoughnut = new Chart("canvas-doughnut", {
         type: "doughnut",
         data: {
-          labels: nameProduct,
-          datasets: [{ label: "Products", data: quantity }],
+          labels: productName,
+          datasets: [{ label: "Products", data: productQuantity }],
         },
       });
     }
